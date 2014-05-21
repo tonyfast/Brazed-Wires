@@ -1,0 +1,22 @@
+%% Braze Wire Data Compaction
+% This dataset was shared with by Amanada Levinson at ONR.
+% The data is segmented into three phases:
+% 
+% * Wire
+% * Matrix
+% * Braze
+%
+% The data is Three Phases and very sparse.  I am converting this data into
+% smaller sparse matrices.
+
+
+%% File Structure of the Layers 
+% Each Layer spacing is 10 microns and each pixel in plane in 5.15 microns
+
+data_dir = 'Braze-Wire-Stack/'
+layers = dir(fullfile( data_dir, '*.tif'));
+for ii = 1 : numel( layers )
+    A = imread( fullfile( data_dir, layers(ii).name ) );
+    unval = inte
+    return
+end
