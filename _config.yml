@@ -6,7 +6,7 @@ pygments: true
 #  url: http://localhost:4000
 url: http://tonyfast.com
 # Repository Name
-baseurl: /Braze-Wires
+baseurl: /Brazed-Wires
 # default image location
 imgbase: /assets
 
