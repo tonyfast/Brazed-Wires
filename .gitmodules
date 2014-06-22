@@ -1,3 +1,6 @@
 [submodule "Matlab-Bootstrap-GH"]
 	path = Matlab-Bootstrap-GH
 	url = https://github.com/tonyfast/Matlab-Bootstrap-GH.git
+[submodule "SpatialStatisticsFFT"]
+	path = SpatialStatisticsFFT
+	url = https://github.com/tonyfast/SpatialStatisticsFFT.git
