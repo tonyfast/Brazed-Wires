@@ -1,5 +1,6 @@
 if ~exist('V2','var')
-    load Braze-Wire-Stack-mat/Braze-Partition-1501-2000.mat
+%     load Braze-Wire-Stack-mat/Braze-Partition-1501-2000.mat
+    load Braze-Wire-Stack-mat/CompleteStack.mat
 end
 
 %%  Binarize Image
@@ -23,6 +24,7 @@ Rlarge(:) = circshift( Rlarge, -1 * ( [r r r] + 0 ) );
 
 %% Use SpatialStatistics as Spherical Hough Filter
 tic;
+disp('Started spatial statistics..')
 Filter = SpatialStatsFFT( A, Rlarge, 'display', false, ...
                                      'normalize', false);
 toc;
@@ -71,7 +73,7 @@ I = zeros( size(id,1),3);
 % Erode the original fibers to index the middle then watershed the values
 % out.
 
-A2 = A( 1: 100,1: 100,1: 100);
+A2 = A;
 eroded = imerode( A2, ones(9));
 id = find( eroded );
 I = zeros( size(id,1),3);
@@ -125,3 +127,18 @@ for ii = 1 : 20
     % overlap of indices
     disp( ii );
 end
+
+%%
+
+clf;
+vol3d( 'Cdata', dI );
+colormap( rand(100,3));
+figure(gcf);
+axis equal
+grid on;
+
+
+units = ReadYaml( 'units.yml' );
+daspect( 1./struct2array( units ) )
+%% Units
+

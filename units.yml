@@ -2,7 +2,7 @@
 #
 # The values below are the aspect ratio of the voxels generated for brazed metallic wires
 #
-# In-plane units
+# In-plane0 units
 x: 5.15 # microns
 y: 5.15 # microns
 # Out-of-plane units
