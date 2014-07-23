@@ -1,7 +1,7 @@
 %% Fiber Pairs
 % Find the fiber pairs
 
-load INDEX/Indexed_fibers.mat
+load INDEX/Indexed_fibers_circular.mat
 
 %%
 % shift the image to find the neighboring pixels.   there is a function to
@@ -44,12 +44,17 @@ G(:) = G - diag(diag(G));
 %% Plot some slices of connected fibers
 
 cut = 300;
-[x,y] = find( G>cut, 3, 'first');
+[x,y] = find( G>cut, 8, 'first');
 
 FilterIndex = dI .* ismember( dI, ...
     [x(:);y(:)] );
 
-trimmed = FilterIndex;
+
+[ trimdex, trimmed] = deal(zeros( size( FilterIndex )));
+trimdex = dI;  % Index of the trimmed image
+for ii = 1 : numel( x );
+    trimmed(:) = max( trimmed ,ii .*[ ismember( FilterIndex, [ x(ii), y(ii) ] )] );
+end
 % Delete zero slices for a more compact viz
 for ii = 1 : 3
     b = all( trimmed == 0,ii);
@@ -60,13 +65,18 @@ for ii = 1 : 3
         evalindex{deletecol} = 'b2';
         evalexp = sprintf( '%s(%s,%s,%s)= [];','trimmed', ...
                             evalindex{1}, evalindex{2}, evalindex{3} );
+        eval( evalexp );                
         
+        evalexp = sprintf( '%s(%s,%s,%s)= [];','trimdex', ...
+            evalindex{1}, evalindex{2}, evalindex{3} );
         eval( evalexp );
+        
     end
 end
 %%
 
 clf;
+ax(1) = subplot( 1,2,1)
 vol3d( 'Cdata', ...
     trimmed, ...  
     'Alpha', trimmed >0 ...
@@ -76,10 +86,26 @@ vol3d( 'Cdata', ...
  figure(gcf);
  axis equal 
  grid on
+
  
+ax(2) = subplot( 1,2,2)
+vol3d( 'Cdata', ...
+    trimdex, ...  
+    'Alpha', trimmed >0 ...
+     );
+ 
+ colormap( rand(10000,3))
+ figure(gcf);
+ axis equal 
+ grid on
+ 
+ linkaxes( ax )
+
  % dI .* ismember( dI - volumetric image mapped with salient indices
  % [x(:);y(:)] - member set of fibers with # of neighbors > ``cut``
+%% Add cumulative adjacency matrix to Indexed fibers
 
+save ./INDEX/Indexed_fibers_circular.mat G -append
 %%
 
 IOI = x0;
