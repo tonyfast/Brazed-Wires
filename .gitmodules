@@ -10,3 +10,7 @@
 [submodule "peakfind_gist"]
 	path = peakfind_gist
 	url = https://gist.github.com/57d5a012866842240145.git
+[submodule "Partition-Stats"]
+	path = Partition-Stats
+	url = https://github.com/tonyfast/SpatialStatisticsFFT.git
+	branch = partitioned
