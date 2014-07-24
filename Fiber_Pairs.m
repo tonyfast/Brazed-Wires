@@ -1,7 +1,7 @@
 %% Fiber Pairs
 % Find the fiber pairs
 
-load INDEX/Indexed_fibers_circular.mat
+load INDEX/Indexed_fibers_filter_circular.mat
 
 %%
 % shift the image to find the neighboring pixels.   there is a function to
